@@ -20,20 +20,20 @@ extern "C"
 
 bool Server::init() {
     m_wayland_display = wl_display_create();
-    if (m_wayland_display) {
+    if (!m_wayland_display) {
         std::cout << "Error: Failed to create a Wayland display object" << std::endl;
         return false;
     }
 
     m_wayland_event_loop = wl_display_get_event_loop(m_wayland_display);
-    if (m_wayland_event_loop) {
+    if (!m_wayland_event_loop) {
         std::cout << "Error: Failed to get the Wayland event loop" << std::endl;
         wl_display_destroy(m_wayland_display);
         return false;
     }
 
     m_wlroots_backend = wlr_backend_autocreate(m_wayland_display);
-    if (m_wlroots_backend) {
+    if (!m_wlroots_backend) {
         std::cout << "Error: Failed to autocreate Wlroots backend" << std::endl;
         wl_display_destroy(m_wayland_display);
         return false;
